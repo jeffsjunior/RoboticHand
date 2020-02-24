@@ -2,6 +2,7 @@
 #include "Hand.h"
 #include "HMM.h"
 
+
 //Define the fingers ID's
 #define  THUMB_ID   0
 #define  INDEX_ID   1
