@@ -9,23 +9,24 @@
 #define HAND_H_
 
 #include "Finger.h"
+#include "Gesture.h"
 #include <inttypes.h>
 
 //Define the Servo Limits
 
-const int THUMB_LOWER_LIMIT  = 96;
+const int THUMB_LOWER_LIMIT  = 180;
 const int THUMB_UPPER_LIMIT  = 440;
 
-const int INDEX_LOWER_LIMIT  = 96;
+const int INDEX_LOWER_LIMIT  = 100;
 const int INDEX_UPPER_LIMIT  = 440;
 
-const int MIDDLE_LOWER_LIMIT = 96;
+const int MIDDLE_LOWER_LIMIT = 190;
 const int MIDDLE_UPPER_LIMIT = 440;
 
-const int RING_LOWER_LIMIT   = 96;
+const int RING_LOWER_LIMIT   = 200;
 const int RING_UPPER_LIMIT   = 440;
 
-const int PINKY_LOWER_LIMIT  = 96;
+const int PINKY_LOWER_LIMIT  = 200;
 const int PINKY_UPPER_LIMIT  = 440;
 
 const int WRIST_LOWER_LIMIT  = 96;
@@ -38,14 +39,20 @@ const int FINGER_UPPER_LIMITS[] = {THUMB_UPPER_LIMIT,INDEX_UPPER_LIMIT,
                                   MIDDLE_UPPER_LIMIT,RING_UPPER_LIMIT,
                                   PINKY_UPPER_LIMIT,WRIST_UPPER_LIMIT};
 
+
 class Hand {
 
 private:
 	Finger m_fingers[6];
+    //Gesture gestObj = Gesture();
 
+    Gesture gestObj[2] = {Gesture("teste", &Hand::testGest),
+                          Gesture("teste2",&Hand::testGest)
+                         };
 public:
-    const uint8_t FAST = 255;
-	const uint8_t SLOW = 55;
+    const uint8_t FAST = 55;
+    const uint8_t MEDIUM = 25;
+	const uint8_t SLOW = 10;
 	const bool WAIT = true;
 
 	enum hand_enum {
@@ -54,16 +61,7 @@ public:
 	  middle,
 	  ring,
 	  pinky,
-	  wrist,
-	};
-
-	enum gesture {
-		count = 1,
-		peace,
-		rock,
-		openH,
-		closeH,
-		tranquilo
+	  wrist
 	};
 
 	Hand();
@@ -80,7 +78,13 @@ public:
 	void closeFinger(hand_enum finger,uint8_t speed);
 	void closeFinger(hand_enum finger,uint8_t speed, bool wait);
 
-	void runGestures(int gest);
+    void thumbGest(void);
+    void indexGest(void);
+    void middleGest(void);
+    void ringGest(void);
+    void pinkyGest(void);
+    void testGest(void);
+	void runGesture(int gest);
 	const char* menu();
 
 	//Gestures
@@ -92,3 +96,5 @@ public:
 };
 
 #endif /* HAND_H_ */
+
+

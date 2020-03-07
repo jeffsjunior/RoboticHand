@@ -56,7 +56,13 @@ const char* Hand::menu()
 			"\t 2 - Peace \n"
 			"\t 3 - Rock \n"
 			"\t 4 - Open \n"
-			"\t 5 - Close \n";
+			"\t 5 - Close \n"
+            "\t 6 - Tranquilo \n"
+            "\t 7 - Thumb \n"
+            "\t 8 - Index \n"
+            "\t 9 - Middle \n"
+            "\t 10 - Ring \n"
+            "\t 11 - Pinky \n";
 
 	return s;
 }
@@ -95,17 +101,13 @@ void Hand::closeFinger(hand_enum finger,uint8_t speed, bool wait)
 	m_fingers[finger].closeFinger(speed, wait);
 }
 
-void Hand::runGestures(int gest)
+void Hand::runGesture(int gest) 
 {
-	switch(gest)
-	{
-        case count: countGest(); break;
-        case peace: peaceGest(); break;
-        case rock: rockGest(); break;
-        case openH: openHand(SLOW); break;
-        case closeH: closeHand(SLOW); break;
-        case tranquilo: tranquilo_favoravel(); break;
-	}
+    //This is ridiculous, I know!
+    //Should've just created an array
+    //of functions instead array of obj with strings
+
+    gestObj[gest].runGesture(this);
 }
 
 //Gestures definition
@@ -173,7 +175,47 @@ void Hand::tranquilo_favoravel()
 	m_fingers[wrist].setPos(90,SLOW,false);
 }
 
+
+void Hand::thumbGest(void){	
+	openFinger(thumb,SLOW,WAIT);
+	delay(200);
+	closeFinger(thumb,SLOW,WAIT);
+    delay(200);
+}
+void Hand::indexGest(void){	
+	openFinger(index,SLOW,WAIT);
+	delay(200);
+	closeFinger(index,SLOW,WAIT);
+    delay(200);
+}
+void Hand::middleGest(void){	
+	openFinger(middle,SLOW,WAIT);
+	delay(200);
+	closeFinger(middle,SLOW,WAIT);
+    delay(200);
+}
+void Hand::ringGest(void){	
+	openFinger(ring,SLOW,WAIT);
+	delay(200);
+	closeFinger(ring,SLOW,WAIT);
+    delay(200);
+}
+void Hand::pinkyGest(void){	
+	openFinger(pinky,SLOW,WAIT);
+	delay(200);
+	closeFinger(pinky,SLOW,WAIT);
+    delay(200);
+}
+
+void Hand::testGest(void){
+    Serial.println("testGest");
+
+}
+
 Hand::~Hand() {
 	// TODO Auto-generated destructor stub
 }
+
+
+
 

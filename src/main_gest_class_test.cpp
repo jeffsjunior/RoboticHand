@@ -1,6 +1,8 @@
 #include <Arduino.h>
 #include "Finger.h"
 #include "Hand.h"
+#include "Gesture.h"
+
 
 //Define the fingers pins
 #define  THUMB_ID   0
@@ -11,21 +13,23 @@
 #define  WRIST_ID   5
 
 Hand myHand = Hand(THUMB_ID, INDEX_ID, MIDDLE_ID, RING_ID, PINKY_ID, WRIST_ID);
+//Gesture gest[2] = {Gesture("teste",&Hand::testGest),
+//                   Gesture("teste2",&Hand::testGest)
+//                  };
 
-
-uint8_t gest;
 void setup(void)
 {
-  myHand.start();
   Serial.begin(9600);
 }
 
 void loop(void)
 {
-	Serial.println(myHand.menu());
-	while(Serial.available() == 0){};
-	gest = Serial.parseInt();
-	myHand.runGestures(gest);
+	//Serial.println(gest[0].nameStr);
+    myHand.runGesture(0);
+   // gest[0].runGesture(myHand);
+   // Serial.println(gest[1].nameStr);
+    //gest[1].runGesture(myHand);
+    delay(1000);
 }
 
 
