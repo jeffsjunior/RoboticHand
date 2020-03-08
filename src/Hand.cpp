@@ -49,22 +49,20 @@ void Hand::setFinger(uint8_t finger, uint16_t pos, uint8_t vel, bool wait)
 	m_fingers[finger].setPos(pos,vel,wait);
 }
 
-const char* Hand::menu()
-{
-	const char* s  = "Gestures: \n"
-			"\t 1 - Count \n"
-			"\t 2 - Peace \n"
-			"\t 3 - Rock \n"
-			"\t 4 - Open \n"
-			"\t 5 - Close \n"
-            "\t 6 - Tranquilo \n"
-            "\t 7 - Thumb \n"
-            "\t 8 - Index \n"
-            "\t 9 - Middle \n"
-            "\t 10 - Ring \n"
-            "\t 11 - Pinky \n";
 
-	return s;
+String Hand::menu()
+{
+	
+    String strMenu = String("Gestures: \n");
+    for(uint8_t i = 0; i < numberOfGestures; i++){
+        strMenu += "\t";
+        strMenu += String(i);
+        strMenu += " - ";
+        strMenu += gestures[i].nameStr;
+        strMenu += "\n";
+    }
+
+	return strMenu;
 }
 
 
@@ -106,8 +104,7 @@ void Hand::runGesture(int gest)
     //This is ridiculous, I know!
     //Should've just created an array
     //of functions instead array of obj with strings
-
-    gestObj[gest].runGesture(this);
+    (this->*gestures[gest].fun)();
 }
 
 //Gestures definition

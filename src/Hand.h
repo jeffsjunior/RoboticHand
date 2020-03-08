@@ -9,46 +9,67 @@
 #define HAND_H_
 
 #include "Finger.h"
-#include "Gesture.h"
 #include <inttypes.h>
 
 //Define the Servo Limits
 
 const int THUMB_LOWER_LIMIT  = 180;
 const int THUMB_UPPER_LIMIT  = 440;
+const int THUMB_MIDDLE_LIMIT = (THUMB_LOWER_LIMIT + THUMB_UPPER_LIMIT)/2;
 
 const int INDEX_LOWER_LIMIT  = 100;
 const int INDEX_UPPER_LIMIT  = 440;
+const int INDEX_MIDDLE_LIMIT = (INDEX_LOWER_LIMIT + INDEX_UPPER_LIMIT)/2;
 
 const int MIDDLE_LOWER_LIMIT = 190;
 const int MIDDLE_UPPER_LIMIT = 440;
+const int MIDDLE_MIDDLE_LIMIT = (MIDDLE_LOWER_LIMIT + MIDDLE_UPPER_LIMIT)/2;
 
 const int RING_LOWER_LIMIT   = 200;
 const int RING_UPPER_LIMIT   = 440;
+const int RING_MIDDLE_LIMIT = (RING_LOWER_LIMIT + RING_UPPER_LIMIT)/2;
 
 const int PINKY_LOWER_LIMIT  = 200;
 const int PINKY_UPPER_LIMIT  = 440;
+const int PINKY_MIDDLE_LIMIT = (PINKY_LOWER_LIMIT + PINKY_UPPER_LIMIT)/2;
 
 const int WRIST_LOWER_LIMIT  = 96;
 const int WRIST_UPPER_LIMIT  = 440;
+const int WRIST_MIDDLE_LIMIT = (WRIST_LOWER_LIMIT + WRIST_UPPER_LIMIT)/2;
 
 const int FINGER_LOWER_LIMITS[] = {THUMB_LOWER_LIMIT,INDEX_LOWER_LIMIT,
                                   MIDDLE_LOWER_LIMIT,RING_LOWER_LIMIT,
                                   PINKY_LOWER_LIMIT,WRIST_LOWER_LIMIT};
+
+const int FINGER_MIDDLE_LIMITS[] = {THUMB_MIDDLE_LIMIT,INDEX_MIDDLE_LIMIT,
+                                    MIDDLE_MIDDLE_LIMIT,RING_MIDDLE_LIMIT,
+                                    PINKY_MIDDLE_LIMIT,WRIST_MIDDLE_LIMIT};
+
 const int FINGER_UPPER_LIMITS[] = {THUMB_UPPER_LIMIT,INDEX_UPPER_LIMIT,
                                   MIDDLE_UPPER_LIMIT,RING_UPPER_LIMIT,
                                   PINKY_UPPER_LIMIT,WRIST_UPPER_LIMIT};
 
 
+
 class Hand {
 
 private:
-	Finger m_fingers[6];
-    //Gesture gestObj = Gesture();
 
-    Gesture gestObj[2] = {Gesture("teste", &Hand::testGest),
-                          Gesture("teste2",&Hand::testGest)
-                         };
+    typedef void (Hand::*gestureFun)(void);
+    
+    typedef struct{
+        const char* nameStr;
+        gestureFun fun;
+    } gesture_t;
+
+	Finger m_fingers[6];
+
+    static const uint8_t numberOfGestures = 2;
+    gesture_t gestures[numberOfGestures] = {
+                                            {"Teste1", &Hand::testGest},
+                                            {"Teste2", &Hand::testGest}
+                                            };
+
 public:
     const uint8_t FAST = 55;
     const uint8_t MEDIUM = 25;
@@ -85,7 +106,7 @@ public:
     void pinkyGest(void);
     void testGest(void);
 	void runGesture(int gest);
-	const char* menu();
+	String menu();
 
 	//Gestures
 	void countGest();

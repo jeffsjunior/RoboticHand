@@ -1,7 +1,6 @@
 #include <Arduino.h>
 #include "Finger.h"
 #include "Hand.h"
-#include "Gesture.h"
 
 
 //Define the fingers pins
@@ -25,7 +24,8 @@ void setup(void)
 void loop(void)
 {
 	//Serial.println(gest[0].nameStr);
-    myHand.runGesture(0);
+    //myHand.runGesture(0);
+    Serial.println(myHand.menu());
    // gest[0].runGesture(myHand);
    // Serial.println(gest[1].nameStr);
     //gest[1].runGesture(myHand);
