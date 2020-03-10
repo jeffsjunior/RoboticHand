@@ -2,7 +2,7 @@
 #define TRUERANDOM_H
 #include <Arduino.h>
 
-//Code obtained in https://gist.github.com/bloc97/b55f684d17edd8f50df8e918cbc00f94
+//Code obtained from https://gist.github.com/bloc97/b55f684d17edd8f50df8e918cbc00f94
 
 #define ANALOGPIN  A0
 

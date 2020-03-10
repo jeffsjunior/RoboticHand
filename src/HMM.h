@@ -16,11 +16,12 @@ extern const char* const statesStr[nStates];
 typedef enum {peace, rock, tranquilo, nBehaviors} tBehavior;
 
 
-typedef void (Hand::*behaviorFun)(void);
+typedef void (Hand::*behaviorFun)(uint8_t);
 
 typedef struct{
     tBehavior behavior;
     behaviorFun run;
+    //speed;
 } sBehavior;
 
 typedef struct {

@@ -35,7 +35,7 @@ uint8_t sortPMF(float pdf[], uint8_t numel){
 
 tBehavior runBehavior(sState currentState, Hand behaviorObj){
     uint8_t i = sortPMF(currentState.behaviorProb, nBehaviors);
-    (behaviorObj.*behaviorsArray[i].run)();
+    (behaviorObj.*behaviorsArray[i].run)(100); //TODO: change!
 
     return behaviorsArray[i].behavior;
 }

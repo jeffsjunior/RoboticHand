@@ -35,16 +35,16 @@ void Hand::stop(void){
      m_fingers[0].stop();
 }
 
-void Hand::setFinger(uint8_t finger, uint16_t pos)
+void Hand::setFinger(fingerName finger, uint16_t pos)
 {
 	m_fingers[finger].setPos(pos);
 }
-void Hand::setFinger(uint8_t finger, uint16_t pos, uint8_t vel)
+void Hand::setFinger(fingerName finger, uint16_t pos, uint8_t vel)
 {
 	m_fingers[finger].setPos(pos,vel);
 }
 
-void Hand::setFinger(uint8_t finger, uint16_t pos, uint8_t vel, bool wait)
+void Hand::setFinger(fingerName finger, uint16_t pos, uint8_t vel, bool wait)
 {
 	m_fingers[finger].setPos(pos,vel,wait);
 }
@@ -78,139 +78,140 @@ void Hand::openHand(uint8_t speed) {
 	}
 }
 
-void Hand::openFinger(hand_enum finger, uint8_t speed)
+void Hand::openFinger(fingerName finger, uint8_t speed)
 {
 	m_fingers[finger].openFinger(speed);
 }
 
-void Hand::openFinger(hand_enum finger, uint8_t speed, bool wait)
+void Hand::openFinger(fingerName finger, uint8_t speed, bool wait)
 {
 	m_fingers[finger].openFinger(speed, wait);
 }
 
 
-void Hand::closeFinger(hand_enum finger,uint8_t speed)
+void Hand::closeFinger(fingerName finger,uint8_t speed)
 {
 	m_fingers[finger].closeFinger(speed);
 }
 
-void Hand::closeFinger(hand_enum finger,uint8_t speed, bool wait)
+void Hand::closeFinger(fingerName finger,uint8_t speed, bool wait)
 {
 	m_fingers[finger].closeFinger(speed, wait);
 }
 
 void Hand::runGesture(int gest) 
 {
-    //This is ridiculous, I know!
-    //Should've just created an array
-    //of functions instead array of obj with strings
-    (this->*gestures[gest].fun)();
+    (this->*gestures[gest].fun)(gestures[gest].speed);
 }
 
 //Gestures definition
-void Hand::countGest()
+void Hand::countGest(uint8_t speed)
 {
-	closeHand(FAST);
+	closeHand(speed);
 	delay(200);
-	openFinger(index,SLOW,WAIT);
+	openFinger(index,speed,WAIT);
 	delay(200);
-	openFinger(middle,SLOW,WAIT);
+	openFinger(middle,speed,WAIT);
 	delay(200);
-	openFinger(ring,SLOW,WAIT);
+	openFinger(ring,speed,WAIT);
 	delay(200);
-	openFinger(pinky,SLOW,WAIT);
+	openFinger(pinky,speed,WAIT);
 	delay(200);
-	openFinger(thumb,SLOW,WAIT);
+	openFinger(thumb,speed,WAIT);
 	delay(200);
-	closeFinger(index,FAST);
-	closeFinger(middle,FAST);
-	closeFinger(ring,FAST);
-	closeFinger(pinky,FAST);
+	closeFinger(index,speed);
+	closeFinger(middle,speed);
+	closeFinger(ring,speed);
+	closeFinger(pinky,speed);
 	delay(200);
-	openFinger(index,SLOW,WAIT);
+	openFinger(index,speed,WAIT);
 	delay(200);
-	openFinger(middle,SLOW,WAIT);
+	openFinger(middle,speed,WAIT);
 	delay(200);
-	openFinger(ring,SLOW,WAIT);
+	openFinger(ring,speed,WAIT);
 	delay(200);
-	openFinger(pinky,SLOW,WAIT);
+	openFinger(pinky,speed,WAIT);
 
 }
 
-void Hand::peaceGest()
+void Hand::peaceGest(uint8_t speed)
 {
-	closeFinger(thumb,SLOW);
-	openFinger(index,SLOW);
-	openFinger(middle,SLOW);
-	closeFinger(ring,SLOW);
-	closeFinger(pinky,SLOW);
+	closeFinger(thumb,speed);
+	openFinger(index,speed);
+	openFinger(middle,speed);
+	closeFinger(ring,speed);
+	closeFinger(pinky,speed);
 }
 
-void Hand::rockGest()
+void Hand::rockGest(uint8_t speed)
 {
-	closeFinger(thumb,SLOW);
-	openFinger(index,SLOW);
-	closeFinger(middle,SLOW);
-	closeFinger(ring,SLOW);
-	openFinger(pinky,SLOW);
+	closeFinger(thumb,speed);
+	openFinger(index,speed);
+	closeFinger(middle,speed);
+	closeFinger(ring,speed);
+	openFinger(pinky,speed);
 }
 
-void Hand::tranquilo_favoravel()
+void Hand::tranquilo_favoravel(uint8_t speed)
 {
-	openFinger(thumb,SLOW);
-	closeFinger(index,SLOW);
-	closeFinger(middle,SLOW);
-	closeFinger(ring,SLOW);
-	openFinger(pinky,SLOW);
+	openFinger(thumb,speed);
+	closeFinger(index,speed);
+	closeFinger(middle,speed);
+	closeFinger(ring,speed);
+	openFinger(pinky,speed);
 	for(int i = 0; i < 4; i++)
 	{
-		openFinger(wrist,SLOW,WAIT);
+		openFinger(wrist,speed,WAIT);
 		delay(300);
-		closeFinger(wrist,SLOW,WAIT);
+		closeFinger(wrist,speed,WAIT);
 		delay(300);
 	}
-	m_fingers[wrist].setPos(90,SLOW,false);
+	m_fingers[wrist].setPos(90,speed,false);
 }
 
-
-void Hand::thumbGest(void){	
-	openFinger(thumb,SLOW,WAIT);
+void Hand::thumbGest(uint8_t speed){	
+	openFinger(thumb,speed,WAIT);
 	delay(200);
-	closeFinger(thumb,SLOW,WAIT);
-    delay(200);
-}
-void Hand::indexGest(void){	
-	openFinger(index,SLOW,WAIT);
-	delay(200);
-	closeFinger(index,SLOW,WAIT);
-    delay(200);
-}
-void Hand::middleGest(void){	
-	openFinger(middle,SLOW,WAIT);
-	delay(200);
-	closeFinger(middle,SLOW,WAIT);
-    delay(200);
-}
-void Hand::ringGest(void){	
-	openFinger(ring,SLOW,WAIT);
-	delay(200);
-	closeFinger(ring,SLOW,WAIT);
-    delay(200);
-}
-void Hand::pinkyGest(void){	
-	openFinger(pinky,SLOW,WAIT);
-	delay(200);
-	closeFinger(pinky,SLOW,WAIT);
+	closeFinger(thumb,speed,WAIT);
     delay(200);
 }
 
-void Hand::testGest(void){
-    Serial.println("testGest");
-
+void Hand::indexGest(uint8_t speed){	
+	openFinger(index,speed,WAIT);
+	delay(200);
+	closeFinger(index,speed,WAIT);
+    delay(200);
 }
 
-Hand::~Hand() {
-	// TODO Auto-generated destructor stub
+void Hand::middleGest(uint8_t speed){	
+	openFinger(middle,speed,WAIT);
+	delay(200);
+	closeFinger(middle,speed,WAIT);
+    delay(200);
+}
+
+void Hand::ringGest(uint8_t speed){	
+	openFinger(ring,speed,WAIT);
+	delay(200);
+	closeFinger(ring,speed,WAIT);
+    delay(200);
+}
+
+void Hand::pinkyGest(uint8_t speed){	
+	openFinger(pinky,speed,WAIT);
+	delay(200);
+	closeFinger(pinky,speed,WAIT);
+    delay(200);
+}
+
+void Hand::testGestOne(uint8_t speed){
+    Serial.println("\ntestGestOne\n");
+    Serial.println(speed);
+}
+
+void Hand::testGestTwo(uint8_t speed){
+    Serial.println("\ntestGestOne\n");
+    Serial.println(speed);
 }
 
 

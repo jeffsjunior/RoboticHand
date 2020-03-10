@@ -10,8 +10,8 @@
 
 #include "Servo.h"
 #include <inttypes.h>
-class Finger {
 
+class Finger {
 
 private:
 
@@ -32,7 +32,6 @@ public:
 	void setPos(uint16_t pos, uint8_t speed, bool wait);
     void start(void);
     void stop(void);
-	virtual ~Finger();
 };
 
 #endif /* FINGER_H_ */

@@ -66,7 +66,5 @@ void Finger::stop(void){
     m_servo.stop();
 }
 
-Finger::~Finger() {
-	// TODO Auto-generated destructor stub
-}
+
 
