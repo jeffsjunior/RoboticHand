@@ -65,19 +65,6 @@ String Hand::menu()
 	return strMenu;
 }
 
-
-void Hand::closeHand(uint8_t speed) {
-	for (int i = thumb; i <= pinky; i++) {
-		m_fingers[i].closeFinger(speed);
-	}
-}
-
-void Hand::openHand(uint8_t speed) {
-	for (int i = thumb; i <= pinky; i++) {
-		m_fingers[i].openFinger(speed);
-	}
-}
-
 void Hand::openFinger(fingerName finger, uint8_t speed)
 {
 	m_fingers[finger].openFinger(speed);
@@ -99,6 +86,31 @@ void Hand::closeFinger(fingerName finger,uint8_t speed, bool wait)
 	m_fingers[finger].closeFinger(speed, wait);
 }
 
+
+void Hand::closeHand(uint8_t speed) {
+    Serial.print("Gesture: closeHand - SPEED: ");
+    Serial.println(speed);
+    Serial.println();
+    /*
+	for (int i = thumb; i <= pinky; i++) {
+		m_fingers[i].closeFinger(speed);
+	}
+    */
+}
+
+void Hand::openHand(uint8_t speed) {
+    Serial.print("Gesture: openHand - SPEED: ");
+    Serial.println(speed);
+    Serial.println();
+    /*
+	for (int i = thumb; i <= pinky; i++) {
+		m_fingers[i].openFinger(speed);
+	}
+    */
+}
+
+//////////////////// Gestures ///////////////////////////
+
 void Hand::runGesture(int gest) 
 {
     (this->*gestures[gest].fun)(gestures[gest].speed);
@@ -107,6 +119,10 @@ void Hand::runGesture(int gest)
 //Gestures definition
 void Hand::countGest(uint8_t speed)
 {
+    Serial.print("Gesture: countGest - SPEED: ");
+    Serial.println(speed);
+    Serial.println();
+    /*
 	closeHand(speed);
 	delay(200);
 	openFinger(index,speed,WAIT);
@@ -131,29 +147,43 @@ void Hand::countGest(uint8_t speed)
 	openFinger(ring,speed,WAIT);
 	delay(200);
 	openFinger(pinky,speed,WAIT);
-
+    */
 }
 
 void Hand::peaceGest(uint8_t speed)
 {
+    Serial.print("Gesture: peaceGest - SPEED: ");
+    Serial.println(speed);
+    Serial.println();
+    /*
 	closeFinger(thumb,speed);
 	openFinger(index,speed);
 	openFinger(middle,speed);
 	closeFinger(ring,speed);
 	closeFinger(pinky,speed);
+    */
 }
 
 void Hand::rockGest(uint8_t speed)
 {
-	closeFinger(thumb,speed);
+    Serial.print("Gesture: rockGest - SPEED: ");
+    Serial.println(speed);
+    Serial.println();
+	/*
+    closeFinger(thumb,speed);
 	openFinger(index,speed);
 	closeFinger(middle,speed);
 	closeFinger(ring,speed);
 	openFinger(pinky,speed);
+    */
 }
 
-void Hand::tranquilo_favoravel(uint8_t speed)
+void Hand::shakaWristGest(uint8_t speed)
 {
+    Serial.print("Gesture: shakawristGest - SPEED: ");
+    Serial.println(speed);
+    Serial.println();
+    /*
 	openFinger(thumb,speed);
 	closeFinger(index,speed);
 	closeFinger(middle,speed);
@@ -167,6 +197,7 @@ void Hand::tranquilo_favoravel(uint8_t speed)
 		delay(300);
 	}
 	m_fingers[wrist].setPos(90,speed,false);
+    */
 }
 
 void Hand::thumbGest(uint8_t speed){	
@@ -203,17 +234,3 @@ void Hand::pinkyGest(uint8_t speed){
 	closeFinger(pinky,speed,WAIT);
     delay(200);
 }
-
-void Hand::testGestOne(uint8_t speed){
-    Serial.println("\ntestGestOne\n");
-    Serial.println(speed);
-}
-
-void Hand::testGestTwo(uint8_t speed){
-    Serial.println("\ntestGestOne\n");
-    Serial.println(speed);
-}
-
-
-
-

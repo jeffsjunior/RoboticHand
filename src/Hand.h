@@ -53,6 +53,29 @@ const int FINGER_UPPER_LIMITS[] = {THUMB_UPPER_LIMIT,INDEX_UPPER_LIMIT,
 
 class Hand {
 
+    
+
+
+public:
+    static const uint8_t VERY_FAST = 55;
+    static const uint8_t FAST = 35;
+    static const uint8_t MEDIUM = 25;
+	static const uint8_t SLOW = 10;
+    static const uint8_t VERY_SLOW = 5;
+    
+	const bool WAIT = true;
+
+	enum fingerName {
+	  thumb = 0,
+	  index,
+	  middle,
+	  ring,
+	  pinky,
+	  wrist
+	};
+
+
+
 private:
 
     typedef void (Hand::*gestureFun)(uint8_t);
@@ -65,30 +88,23 @@ private:
 
 	Finger m_fingers[6];
 
-    static const uint8_t numberOfGestures = 2;
+    static const uint8_t numberOfGestures = 6;
     gesture_t gestures[numberOfGestures] = {
-                                            {"Teste1", &Hand::testGestOne, SLOW},
-                                            {"Teste2", &Hand::testGestTwo, FAST}
+                                            {"OpenHand", &Hand::openHand, FAST},
+                                            {"CloseHand", &Hand::closeHand, FAST},
+                                            {"Count", &Hand::countGest, FAST},
+                                            {"Peace", &Hand::peaceGest, FAST},
+                                            {"Rock", &Hand::rockGest, FAST},
+                                            {"ShakaWrist", &Hand::shakaWristGest, FAST}
+
+                                            //shakarockGest
+                                            //OKGest
+                                            //middleFingerGest
+                                            //lazyGest
+                                            //halfLazyGest
                                             };
 
 public:
-
-    const uint8_t VERY_FAST = 55;
-    const uint8_t FAST = 35;
-    const uint8_t MEDIUM = 25;
-	const uint8_t SLOW = 10;
-    const uint8_t VERY_SLOW = 5;
-
-	const bool WAIT = true;
-
-	enum fingerName {
-	  thumb = 0,
-	  index,
-	  middle,
-	  ring,
-	  pinky,
-	  wrist
-	};
 
 	Hand();
     Hand(uint8_t idT, uint8_t idI, uint8_t idM, uint8_t idR, uint8_t idP, uint8_t idW);
@@ -119,15 +135,14 @@ public:
 //              sMiddleFinger, sRock, sRockShaka,
 //              nBehavior} tBehavior;
 
-    void testGestOne(uint8_t speed);
-    void testGestTwo(uint8_t speed);
+
     void closeHand(uint8_t speed);
 	void openHand(uint8_t speed);
-    //loose, OK, sShaka, rockShaka, middleFinger, shakawrist
+
     void countGest(uint8_t speed);
 	void peaceGest(uint8_t speed);
 	void rockGest(uint8_t speed);
-	void tranquilo_favoravel(uint8_t speed);
+	void shakaWristGest(uint8_t speed);
 
 };
 

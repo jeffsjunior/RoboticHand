@@ -15,6 +15,7 @@ Hand myHand = Hand(THUMB_ID, INDEX_ID, MIDDLE_ID, RING_ID, PINKY_ID, WRIST_ID);
 //Gesture gest[2] = {Gesture("teste",&Hand::testGest),
 //                   Gesture("teste2",&Hand::testGest)
 //                  };
+uint8_t gest;
 
 void setup(void)
 {
@@ -25,11 +26,16 @@ void loop(void)
 {
 	//Serial.println(gest[0].nameStr);
     //myHand.runGesture(0);
-    Serial.println(myHand.menu());
+    //Serial.println(myHand.menu());
    // gest[0].runGesture(myHand);
    // Serial.println(gest[1].nameStr);
     //gest[1].runGesture(myHand);
-    delay(1000);
+    //delay(1000);
+
+    Serial.println(myHand.menu());
+	while(Serial.available() == 0){};
+	gest = Serial.parseInt();
+	myHand.runGesture(gest);
 }
 
 

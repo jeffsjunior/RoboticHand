@@ -13,7 +13,7 @@ sState statesArray[] = {{sHappy, {0.8, 0.1, 0.1}, {0.4, 0.4, 0.068}},
 
 sBehavior behaviorsArray[] = {{peace, &Hand::peaceGest},
                               {rock, &Hand::rockGest},
-                              {tranquilo, &Hand::tranquilo_favoravel}};
+                              {tranquilo, &Hand::shakaWristGest}};
 
 //Functions
 sState nextState(sState currentState){
